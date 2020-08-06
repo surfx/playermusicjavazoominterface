@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_241"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="libs"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="lib" path="libs/jl1.0.1.jar" sourcepath="libs/jl1.0.1.jar"/>
+	<classpathentry kind="lib" path="libs/flatlaf-0.38.jar"/>
+	<classpathentry kind="lib" path="libs/mp3agic-0.9.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
