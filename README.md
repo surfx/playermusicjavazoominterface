@@ -21,14 +21,38 @@ FlatLaf
 
 ## Shell
 
+Exportar o runnable jar (player1.0.0.jar)
+
 ```
 #!/bin/bash
 
-cd /home/emerson/Documents/programas/softwares/player
+cd /home/.../Documents/programas/softwares/player
 /usr/lib/jvm/openjdk-8u332/bin/java -jar player1.0.0.jar &
 ```
 
-## Eclipse Visual Editor
+## player.desktop
+
+```
+cd /usr/share/applications
+sudo gedit player.desktop
+```
+
+```
+[Desktop Entry]
+Type=Application
+Name=Player
+Comment=Player
+Comment[pt_BR]=Player
+Encoding=UTF-8
+Exec=nohup /bin/bash /home/.../Documents/programas/softwares/player/player.sh
+GenericName=SqlDeveloper
+GenericName[pt_BR]=Player
+Icon=/home/.../Documents/programas/softwares/player/cap-icon.ico
+Terminal=false
+Name[pt_BR]=player
+```
+
+## Eclipse Window Builder
 
 - [WindowBuilder](https://www.eclipse.org/windowbuilder/)
 
