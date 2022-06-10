@@ -114,7 +114,7 @@ public class Arquivos {
 		if (lista1==null||lista1.isEmpty()) {return lista2;}
 		if (lista2==null||lista2.isEmpty()) {return lista1;}
 
-		// não usa List pq eu só vou add um arquivo e ignorar o outro
+		// nao usa List pq eu so vou add um arquivo e ignorar o outro
 		Map<String, File> map = new HashMap<String, File>();
 		for(File f : lista1) {
 			if (f==null||!f.exists()) {continue;}
@@ -140,7 +140,7 @@ public class Arquivos {
 	private static List<File> removerDuplicatas(List<File> lista){
 		if (lista==null||lista.isEmpty()) {return lista;}
 
-		// não usa List pq eu só vou add um arquivo e ignorar o outro
+		// nao usa List pq eu so vou add um arquivo e ignorar o outro
 		Map<String, File> map = new HashMap<String, File>();
 		for(File f : lista) {
 			if (f==null||!f.exists()) {continue;}

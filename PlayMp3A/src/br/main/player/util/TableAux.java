@@ -22,7 +22,7 @@ public class TableAux implements Serializable {
 		for (int i = 0; i < size; i++) {
 			IndexFile idxf = listaMusicas.get(i);
 
-			// essa leitura é muito demorada :(
+			// essa leitura e muito demorada :(
 			//InformacoesMp3 info = null; // LerPropriedadesMp3.getInstance().getInformacoesMp3(f);
 			//if (info != null) { // por enquanto...
 			//	dados[i] = new Object[] { info.getArtista(), info.getTitulo() /* , f.getAbsolutePath() */ };

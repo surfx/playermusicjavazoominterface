@@ -81,7 +81,7 @@ public class Testes {
 		if (lista1==null||lista1.isEmpty()) {return lista2;}
 		if (lista2==null||lista2.isEmpty()) {return lista1;}
 
-		// não usa List pq eu só vou add um arrquivo e ignorar o outro
+		// nao usa List pq eu so vou add um arrquivo e ignorar o outro
 		Map<String, File> map = new HashMap<String, File>();
 		for(File f : lista1) {
 			if (f==null||!f.exists()) {continue;}
@@ -108,7 +108,7 @@ public class Testes {
 		if (lista1==null||lista1.isEmpty()) {return lista2;}
 		if (lista2==null||lista2.isEmpty()) {return lista1;}
 
-		// não usa List pq eu só vou add um arrquivo e ignorar o outro
+		// nï¿½o usa List pq eu sï¿½ vou add um arrquivo e ignorar o outro
 		Map<String, File> map = new HashMap<String, File>();
 		for(File f : lista1) {
 			if (f==null||!f.exists()) {continue;}

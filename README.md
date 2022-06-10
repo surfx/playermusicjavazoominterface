@@ -17,3 +17,20 @@ FlatLaf
 
 
 ![Player v1.0.0](https://raw.githubusercontent.com/surfx/playermusicjavazoominterface/master/imagens/player_img.png)
+
+
+## Shell
+
+```
+#!/bin/bash
+
+cd /home/emerson/Documents/programas/softwares/player
+/usr/lib/jvm/openjdk-8u332/bin/java -jar player1.0.0.jar &
+```
+
+## Eclipse Visual Editor
+
+- [WindowBuilder](https://www.eclipse.org/windowbuilder/)
+
+
+

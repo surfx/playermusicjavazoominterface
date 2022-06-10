@@ -20,7 +20,7 @@ import br.main.arquivos.util.hash.SHA1Calculo;
  * https://mvnrepository.com/artifact/com.mpatric/mp3agic/0.9.1<br />
  * https://github.com/mpatric/mp3agic<br /><br />
  * 
- * Obs: essa lib é muito lenta, pensar numa forma de fazer cache
+ * Obs: essa lib e muito lenta, pensar numa forma de fazer cache
  *
  */
 public class LerPropriedadesMp3 implements Serializable {
@@ -44,7 +44,7 @@ public class LerPropriedadesMp3 implements Serializable {
 			if(f==null||!f.exists()) {continue;}
 			String sha = SHA1Calculo.getInstance().hashFile(f);
 			if(sha==null||sha.isEmpty()) {continue;}
-			if(mapInformacoesArquivos.containsKey(sha)) {continue;} //já calculado, arquivo repetido
+			if(mapInformacoesArquivos.containsKey(sha)) {continue;} //ja calculado, arquivo repetido
 			InformacoesMp3 info = getInfo(f);
 			if (info==null) {continue;}
 			mapInformacoesArquivos.put(sha, info);
@@ -57,7 +57,7 @@ public class LerPropriedadesMp3 implements Serializable {
 		if (sha == null || sha.isEmpty()) { return null; }
 		if (mapInformacoesArquivos == null || !mapInformacoesArquivos.containsKey(sha)) {
 			mapInformacoesArquivos = mapInformacoesArquivos != null ? mapInformacoesArquivos : new HashMap<String, InformacoesMp3>();
-			//if (mapInformacoesArquivos.containsKey(sha)) { return mapInformacoesArquivos.get(sha); } // já calculado, arquivo repetido
+			//if (mapInformacoesArquivos.containsKey(sha)) { return mapInformacoesArquivos.get(sha); } // ja calculado, arquivo repetido
 			InformacoesMp3 info = getInfo(f);
 			if (info == null) { return null; }
 			mapInformacoesArquivos.put(sha, info);
@@ -70,7 +70,7 @@ public class LerPropriedadesMp3 implements Serializable {
 	private InformacoesMp3 getInfo(File f) {
 		if (f == null) { return null; }
 		try {
-			Mp3File mp3file = new Mp3File(f); // essa lib é muito lenta
+			Mp3File mp3file = new Mp3File(f); // essa lib ï¿½ muito lenta
 			if (mp3file.hasId3v1Tag()) {
 				ID3v1 id3v1tag = mp3file.getId3v1Tag();
 				return new InformacoesMp3(id3v1tag.getTitle(), id3v1tag.getArtist(), null, null, id3v1tag.getAlbum());

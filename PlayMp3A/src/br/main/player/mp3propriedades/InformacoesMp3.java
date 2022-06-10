@@ -3,7 +3,7 @@ package br.main.player.mp3propriedades;
 import java.io.Serializable;
 
 /**
- * informações do arquivo mp3
+ * informacoes do arquivo mp3
  * @author spy
  *
  */

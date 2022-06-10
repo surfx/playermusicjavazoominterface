@@ -11,7 +11,7 @@ import br.main.player.util.TableAux;
 public class ListaMusicas {
 
 	private final String[] extensions = new String[] { "mp3", "wav" };
-	private final String pathListaSalvar = new java.io.File("").getAbsolutePath() + "\\lista.txt";
+	private final String pathListaSalvar = new java.io.File("").getAbsolutePath() + "/lista.txt";
 
 	public List<IndexFile> salvarListaMusicas(String pathMusicas) {
 		if (pathMusicas==null||pathMusicas.isEmpty()) {return null;}
@@ -25,7 +25,7 @@ public class ListaMusicas {
 		}
 
 		Arquivos.write(this.pathListaSalvar, listaSalvar, false);
-		System.out.println("Músicas salvas em: " + this.pathListaSalvar);
+		System.out.println("Musicas salvas em: " + this.pathListaSalvar);
 		return larquivos;
 	}
 
@@ -44,7 +44,7 @@ public class ListaMusicas {
 
 		//musicasPath.forEach(f->{ rt.add(new File(f)); });
 
-		// calcula as informações no momento do get - muito demorado :(
+		// calcula as informacoes no momento do get - muito demorado :(
 //		new Thread(new Runnable() {
 //			@Override
 //			public void run() {

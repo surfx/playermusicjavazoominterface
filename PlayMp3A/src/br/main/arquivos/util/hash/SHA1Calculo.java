@@ -21,13 +21,13 @@ public class SHA1Calculo implements Serializable {
 	//private MessageDigest dgst = null;
 	
 	/**
-	 * Não calcula o hash porque senão seria muito demorado
+	 * Nao calcula o hash porque senao seria muito demorado
 	 * @param arq
 	 * @return
 	 */
 	public String hashFile(File arq) {
 
-		// o método para calcular o hash é muito demorado, por isso agora o hash será o nome do arquivo
+		// o metodo para calcular o hash e muito demorado, por isso agora o hash sera o nome do arquivo
 		return LerPropriedadesMp3.tratarNomeMusica(arq);
 		
 //		try {

@@ -63,7 +63,7 @@ public class PlayMp3 {
 		stop();
 		if (player == null) return;
 		try { player.close(); } catch (Exception e) { }
-		if (pos!=null) {pos.setPausedOnFrame(0);} //depois do close não terá despause()
+		if (pos!=null) {pos.setPausedOnFrame(0);} //depois do close nao tera despause()
 	}
 	
 	public void playPause() {
@@ -125,7 +125,7 @@ public class PlayMp3 {
 					if (pos.getPausedOnFrame() <= 0) {
 						player.play();
 					} else {
-						// possível erro - totalFrames
+						// possï¿½vel erro - totalFrames
 						player.play(pos.getPausedOnFrame(), totalFrames <= 0 ? Integer.MAX_VALUE : totalFrames);
 					}
 				} catch (Exception e) {

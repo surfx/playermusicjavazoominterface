@@ -100,7 +100,7 @@ public class JPlayerMp3 extends JFrame {
 						public void run() {
 							File f = j.getSelectedFile();
 							List<IndexFile> musicas = new ListaMusicas().salvarListaMusicas(f.getAbsolutePath());
-							JPlayerMp3.this.mapMusicas = TableAux.toMapMusicas(musicas); // atualiza a memória de músicas
+							JPlayerMp3.this.mapMusicas = TableAux.toMapMusicas(musicas); // atualiza a memoria de musicas
 							JPlayerMp3.this.preencherTabelaMusicas(musicas);
 						}
 					}).start();
@@ -123,7 +123,7 @@ public class JPlayerMp3 extends JFrame {
 						return;
 					}
 				//}
-				JPlayerMp3.this.playMp3.playPause(); // o componente sabe em qual estado está
+				JPlayerMp3.this.playMp3.playPause(); // o componente sabe em qual estado estÃ¡
 			}
 		});
 		btnPlay.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -242,7 +242,7 @@ public class JPlayerMp3 extends JFrame {
 			@Override
 			public void executarHandler() {
 				JPlayerMp3.this.setTitle(JPlayerMp3.this.appname);
-				//System.out.println("Música has ended");
+				//System.out.println("MÃºsica has ended");
 				if (!playNext) { return; }
 				JPlayerMp3.this.playMusica(isRandom ? JPlayerMp3.this.getMusicAleatoria() : JPlayerMp3.this.getNextMusic(), playNext, isRandom);
 			}
@@ -273,7 +273,7 @@ public class JPlayerMp3 extends JFrame {
 	private void preencherTabelaMusicas(final List<IndexFile> listaMusicas) {
 		//this.mapMusicas = TableAux.toMapMusicas(listaMusicas);
 		Object[][] dados = TableAux.getDadosJTable(listaMusicas);
-		String[] colunas = { "#", "Artista", "Música" /* , "Caminho" */ };
+		String[] colunas = { "#", "Artista", "Music" /* , "Caminho" */ };
 
 		if (this.table != null) {
 			this.table.clearSelection();
@@ -318,27 +318,27 @@ public class JPlayerMp3 extends JFrame {
 
 	private IndexFile getPreviousMusic() {
 		int row = JPlayerMp3.this.getRowSelecionado();
-		if (row < 0) { row = 0; } // não selecionou nenhum
+		if (row < 0) { row = 0; } // nao selecionou nenhum
 		row--;
 		if (row < 0) { row = JPlayerMp3.this.table.getRowCount() - 1; }
 		if (row >= JPlayerMp3.this.table.getRowCount()) { row = 0; }
 
 		Integer indice = JPlayerMp3.this.getIndiceMusica(row);
 		if (indice == null) { return null; }
-		JPlayerMp3.this.selecionarMusicaTable(row); //seleciona a música na table
+		JPlayerMp3.this.selecionarMusicaTable(row); //seleciona a musica na table
 		return JPlayerMp3.this.getMusicaToPlay(indice);
 	}
 
 	private IndexFile getNextMusic() {
 		int row = JPlayerMp3.this.getRowSelecionado();
-		if (row < 0) { row = 0; } // não selecionou nenhum
+		if (row < 0) { row = 0; } // nao selecionou nenhum
 		row++;
 		if (row < 0) { row = JPlayerMp3.this.table.getRowCount() - 1; }
 		if (row >= JPlayerMp3.this.table.getRowCount()) { row = 0; }
 
 		Integer indice = JPlayerMp3.this.getIndiceMusica(row);
 		if (indice == null) { return null; }
-		JPlayerMp3.this.selecionarMusicaTable(row); //seleciona a música na table
+		JPlayerMp3.this.selecionarMusicaTable(row); //seleciona a musica na table
 		return JPlayerMp3.this.getMusicaToPlay(indice);
 	}
 
@@ -352,7 +352,7 @@ public class JPlayerMp3 extends JFrame {
 
 		Integer indice = JPlayerMp3.this.getIndiceMusica(rowAleatorio);
 		if (indice == null) { return null; }
-		JPlayerMp3.this.selecionarMusicaTable(rowAleatorio); //seleciona a música na table
+		JPlayerMp3.this.selecionarMusicaTable(rowAleatorio); //seleciona a musica na table
 		return JPlayerMp3.this.getMusicaToPlay(indice);
 	}
 
@@ -362,10 +362,10 @@ public class JPlayerMp3 extends JFrame {
 
 	private void selecionarMusicaTable(int row) {
 		if(row<0) {return;}
-		// seleciona a música na tabela
+		// seleciona a musica na tabela
 		this.table.clearSelection();
 		this.table.setRowSelectionInterval(row, row);
-		this.table.scrollRectToVisible(this.table.getCellRect(this.table.getSelectedRow(), 0, true)); // move o scroll até ela
+		this.table.scrollRectToVisible(this.table.getCellRect(this.table.getSelectedRow(), 0, true)); // move o scroll ate ela
 		this.repaintThis();
 	}
 
@@ -406,10 +406,10 @@ public class JPlayerMp3 extends JFrame {
  *
  * @Override public void mouseClicked(MouseEvent mouseEvent) {
  *
- * //não precisa se preocupar com a ordenação pois o double click pega pelo
- * número do índice da lista, que está no índice 0 da JTable
+ * //nao precisa se preocupar com a ordenacao pois o double click pega pelo
+ * numero do indice da lista, que esta no indice 0 da JTable
  *
- * // // necessário reordenar a lista lógica de acordo com a ordem da lista no
+ * // // necessario reordenar a lista logica de acordo com a ordem da lista no
  * JTable // // int rowCount = table.getRowCount(); // int colCount =
  * table.getColumnCount(); // //// System.out.println("rowCount: " + rowCount);
  * //// System.out.println("colCount: " + colCount); // // Point point =
