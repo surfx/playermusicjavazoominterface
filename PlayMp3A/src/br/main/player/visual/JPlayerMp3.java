@@ -116,13 +116,20 @@ public class JPlayerMp3 extends JFrame {
 		});
 		this.contentPane.add(btnAddPasta);
 
-		JButton btnPlay = new JButton("Play");
+		ImageIcon imgPlay = new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-reproduzir-16.png"));
+		ImageIcon imgPause = new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-pausa-16.png"));
+		JButton btnPlay = new JButton("");
+		btnPlay.setIcon(imgPlay);
+		btnPlay.setBounds(112, 11, 25, 23);
 		btnPlay.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				boolean playEstado = btnPlay.getText().equals("Play");
-				btnPlay.setText(playEstado ? "Pause" : "Play");
-
+				if (!existemMusicas()) {
+					btnPlay.setIcon(imgPlay);
+					return;
+				}
+				boolean playEstado = btnPlay.getIcon().toString() == imgPlay.toString();
+				btnPlay.setIcon(playEstado ? imgPause : imgPlay);
 				//if (playEstado) {
 					if (JPlayerMp3.this.playMp3==null) {
 						JPlayerMp3.this.playMusica(JPlayerMp3.this.getMusicaToPlay(), true, false);
@@ -133,46 +140,71 @@ public class JPlayerMp3 extends JFrame {
 			}
 		});
 		btnPlay.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnPlay.setBounds(274, 11, 102, 23);
+		btnPlay.setBackground(Color.WHITE);
+		btnPlay.setBorder(BorderFactory.createEmptyBorder());
+		btnPlay.setContentAreaFilled(false);
+		btnPlay.setFocusPainted(false);
 		this.contentPane.add(btnPlay);
 
-		JButton btnAnterior = new JButton("<");
+		JButton btnAnterior = new JButton("");
+		btnAnterior.setBounds(37, 11, 25, 23);
+		btnAnterior.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-voltar-16.png")));
 		btnAnterior.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				btnPlay.setText("Play");
+				btnPlay.setIcon(imgPlay);
+				if (!existemMusicas()) {return;}
 				JPlayerMp3.this.playMusica(JPlayerMp3.this.getPreviousMusic(), true, false);
 			}
 		});
 		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnAnterior.setBounds(124, 11, 41, 23);
+		btnAnterior.setBackground(Color.WHITE);
+		btnAnterior.setBorder(BorderFactory.createEmptyBorder());
+		btnAnterior.setContentAreaFilled(false);
+		btnAnterior.setFocusPainted(false);
 		this.contentPane.add(btnAnterior);
 
-		JButton btnProxima = new JButton(">");
+		JButton btnProxima = new JButton("");
+		btnProxima.setBounds(61, 11, 25, 23);
+		btnProxima.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-avançar-16.png")));
 		btnProxima.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnPlay.setText("Play");
+				btnPlay.setIcon(imgPlay);
+				if (!existemMusicas()) {return;}
 				JPlayerMp3.this.playMusica(JPlayerMp3.this.getNextMusic(), true, false);
 			}
 		});
 		btnProxima.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnProxima.setBounds(172, 11, 41, 23);
+		btnProxima.setBackground(Color.WHITE);
+		btnProxima.setBorder(BorderFactory.createEmptyBorder());
+		btnProxima.setContentAreaFilled(false);
+		btnProxima.setFocusPainted(false);
 		this.contentPane.add(btnProxima);
 
-		JButton btnRandozimarListaMusicas = new JButton("r");
+		JButton btnRandozimarListaMusicas = new JButton("");
+		btnRandozimarListaMusicas.setBounds(86, 11, 25, 23);
+		btnRandozimarListaMusicas.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-embaralhar-16.png")));
 		btnRandozimarListaMusicas.setToolTipText("Randomizar Lista de M\u00FAsicas");
 		btnRandozimarListaMusicas.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				btnPlay.setText("Play");
-				JPlayerMp3.this.playMusica(JPlayerMp3.this.getMusicAleatoria(), true, true);
+				if (!existemMusicas()) { return; }
+				IndexFile indice = JPlayerMp3.this.getMusicAleatoria();
+				if (indice==null) {return;}
+				btnPlay.setIcon(imgPlay);
+				JPlayerMp3.this.playMusica(indice, true, true);
 			}
 		});
-		btnRandozimarListaMusicas.setBounds(223, 11, 41, 23);
+		btnRandozimarListaMusicas.setBackground(Color.WHITE);
+		btnRandozimarListaMusicas.setBorder(BorderFactory.createEmptyBorder());
+		btnRandozimarListaMusicas.setContentAreaFilled(false);
+		btnRandozimarListaMusicas.setFocusPainted(false);
 		this.contentPane.add(btnRandozimarListaMusicas);
 
-		JButton btnStop = new JButton("Stop");
+		JButton btnStop = new JButton("");
+		btnStop.setBounds(135, 11, 25, 23);
+		btnStop.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-parar-16.png")));
 		btnStop.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -185,7 +217,10 @@ public class JPlayerMp3 extends JFrame {
 			}
 		});
 		btnStop.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnStop.setBounds(386, 11, 102, 23);
+		btnStop.setBackground(Color.WHITE);
+		btnStop.setBorder(BorderFactory.createEmptyBorder());
+		btnStop.setContentAreaFilled(false);
+		btnStop.setFocusPainted(false);
 		this.contentPane.add(btnStop);
 
 		this.lblStatus = new JLabel("");
@@ -247,6 +282,7 @@ public class JPlayerMp3 extends JFrame {
 		this.playMp3 = new PlayMp3(musicaToPlay.getFile().getAbsolutePath(), new IHandlerMusicStopped() {
 			@Override
 			public void executarHandler() {
+				if (!existemMusicas()) { return; }
 				JPlayerMp3.this.setTitle(JPlayerMp3.this.appname);
 				//System.out.println("Música has ended");
 				if (!playNext) { return; }
@@ -349,12 +385,15 @@ public class JPlayerMp3 extends JFrame {
 	}
 
 	private IndexFile getMusicAleatoria() {
+		if (!existemMusicas()) { return null; }
 		int rowAleatorio = 0;
 
 		final int rowAtualSelecionado = this.getRowSelecionado();
-		do {
-			rowAleatorio = RandomNumber.getRandomNumber(0, JPlayerMp3.this.table.getRowCount() - 1);
-		} while(rowAleatorio==rowAtualSelecionado);
+		if (JPlayerMp3.this.table.getRowCount() >= 2) {
+			do {
+				rowAleatorio = RandomNumber.getRandomNumber(0, JPlayerMp3.this.table.getRowCount() - 1);
+			} while(rowAleatorio==rowAtualSelecionado);
+		}
 
 		Integer indice = JPlayerMp3.this.getIndiceMusica(rowAleatorio);
 		if (indice == null) { return null; }
@@ -397,6 +436,10 @@ public class JPlayerMp3 extends JFrame {
 		JPlayerMp3.this.preencherTabelaMusicas(listatemporaria);
 	}
 
+	private boolean existemMusicas() {
+		return JPlayerMp3.this.table != null && JPlayerMp3.this.table.getRowCount() > 0;
+	}
+	
 }
 
 /*
