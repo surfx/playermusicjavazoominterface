@@ -1,1 +1,8 @@
 .metadata
+/.metadata/
+/.recommenders/
+/.sonarlint
+.attach_pid*
+/RemoteSystemsTempFiles/*
+/clientdb.xml
+/package-lock.json

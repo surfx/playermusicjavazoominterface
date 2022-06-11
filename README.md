@@ -18,6 +18,9 @@ FlatLaf
 
 ![Player v1.0.0](https://raw.githubusercontent.com/surfx/playermusicjavazoominterface/master/imagens/player_img.png)
 
+Ícones
+
+[Icons8](https://icons8.com.br/icon/set/aleat%C3%B3rio/small)
 
 ## Shell
 
@@ -33,8 +36,7 @@ cd /home/.../Documents/programas/softwares/player
 ## player.desktop
 
 ```
-cd /usr/share/applications
-sudo gedit player.desktop
+sudo gedit /usr/share/applications/player.desktop
 ```
 
 ```
@@ -45,7 +47,7 @@ Comment=Player
 Comment[pt_BR]=Player
 Encoding=UTF-8
 Exec=nohup /bin/bash /home/.../Documents/programas/softwares/player/player.sh
-GenericName=SqlDeveloper
+GenericName=Player
 GenericName[pt_BR]=Player
 Icon=/home/.../Documents/programas/softwares/player/cap-icon.ico
 Terminal=false

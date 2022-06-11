@@ -1,5 +1,6 @@
 package br.main.player.visual;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -29,7 +31,6 @@ import javax.swing.table.DefaultTableModel;
 
 import com.formdev.flatlaf.FlatLightLaf;
 
-import br.main.Main;
 import br.main.arquivos.ListaMusicas;
 import br.main.player.PlayMp3;
 import br.main.player.animacao.AnimacaoBarra;
@@ -68,7 +69,7 @@ public class JPlayerMp3 extends JFrame {
 
 		JPlayerMp3 isto = this;
 
-		URL local = Main.class.getClassLoader().getResource("cap-icon.png");
+		URL local = JPlayerMp3.class.getResource("/icones/cap-icon.png");
 		if (local!=null) { ImageIcon icon = new ImageIcon(local); if (icon!=null) { this.setIconImage(icon.getImage()); } }
 
 		this.setTitle(this.appname);
@@ -80,9 +81,14 @@ public class JPlayerMp3 extends JFrame {
 		this.contentPane.setLayout(null);
 		this.setContentPane(this.contentPane);
 
-		JButton btnAddPasta = new JButton("add pasta");
-		btnAddPasta.setBounds(10, 11, 102, 23);
+		JButton btnAddPasta = new JButton("");
+		btnAddPasta.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-pasta-16.png")));
+		btnAddPasta.setBounds(10, 11, 25, 23);
 		btnAddPasta.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btnAddPasta.setBackground(Color.WHITE);
+		btnAddPasta.setBorder(BorderFactory.createEmptyBorder());
+		btnAddPasta.setContentAreaFilled(false);
+		btnAddPasta.setFocusPainted(false);
 		btnAddPasta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
