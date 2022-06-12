@@ -36,22 +36,22 @@ cd /home/.../Documents/programas/softwares/player
 ## player.desktop
 
 ```
-sudo gedit /usr/share/applications/player.desktop
+sudo gedit /usr/share/applications/java_music.desktop
 ```
 
 ```
 [Desktop Entry]
 Type=Application
-Name=Player
-Comment=Player
-Comment[pt_BR]=Player
+Name=Java Music
+Comment=Java Music
+Comment[pt_BR]=Java Music
 Encoding=UTF-8
-Exec=nohup /bin/bash /home/.../Documents/programas/softwares/player/player.sh
-GenericName=Player
-GenericName[pt_BR]=Player
-Icon=/home/.../Documents/programas/softwares/player/cap-icon.ico
+Exec=nohup /bin/bash /home/.../Documents/programas/softwares/java_player/java_player.sh
+GenericName=Java Music
+GenericName[pt_BR]=Java Music
+Icon=/home/.../Documents/programas/softwares/java_player/java_player.ico
 Terminal=false
-Name[pt_BR]=player
+Name[pt_BR]=Java Music
 ```
 
 ## Eclipse Window Builder
