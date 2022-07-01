@@ -1,6 +1,9 @@
 package br.main.player.visual;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,6 +41,7 @@ import br.main.player.entidade.IndexFile;
 import br.main.player.interfaces.IHandlerMusicPosition;
 import br.main.player.interfaces.IHandlerMusicStopped;
 import br.main.player.mp3propriedades.LerPropriedadesMp3;
+import br.main.player.util.Propriedades;
 import br.main.player.util.RandomNumber;
 import br.main.player.util.TableAux;
 
@@ -65,30 +69,62 @@ public class JPlayerMp3 extends JFrame {
 		// https://mvnrepository.com/artifact/com.formdev/flatlaf/0.38, https://www.formdev.com/flatlaf/#download, https://www.formdev.com/flatlaf/themes/
 		FlatLightLaf.install(); try { UIManager.setLookAndFeel(new FlatLightLaf()); } catch (Exception ex) { }
 
-		this.setResizable(false);
-
-		JPlayerMp3 isto = this;
-
 		URL local = JPlayerMp3.class.getResource("/icones/cap-icon.png");
 		if (local!=null) { ImageIcon icon = new ImageIcon(local); if (icon!=null) { this.setIconImage(icon.getImage()); } }
 
+		//this.setResizable(false);
 		this.setTitle(this.appname);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setBounds(100, 100, 685, 422);
+		Dimension d = Propriedades.getWH();
+		int w = d==null||d.getWidth()<=0.0? 900: (int) Math.round(d.getWidth());
+		int h = d==null||d.getHeight()<=0.0? 650: (int) Math.round(d.getHeight());
+		this.setBounds(100, 100, w, h);
 		this.setLocationRelativeTo(null); // centraliza no meio da tela
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		this.contentPane.setLayout(null);
+		this.contentPane.setLayout(new BorderLayout(0, 0));
+
+		adicionarBotoes(contentPane);
+		addJtable(contentPane);
+		addRodape(contentPane);
+
 		this.setContentPane(this.contentPane);
 
-		JButton btnAddPasta = new JButton("");
-		btnAddPasta.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-pasta-16.png")));
-		btnAddPasta.setBounds(10, 11, 25, 23);
-		btnAddPasta.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnAddPasta.setBackground(Color.WHITE);
-		btnAddPasta.setBorder(BorderFactory.createEmptyBorder());
-		btnAddPasta.setContentAreaFilled(false);
-		btnAddPasta.setFocusPainted(false);
+		this.animacaobarra = new AnimacaoBarra(this.lblStatus);
+
+		this.preencherTabelaMusicas();
+		
+		final JPlayerMp3 isto = this;
+		addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+            	Propriedades.salvarWH(isto.getWidth(), isto.getHeight());
+                System.exit(0);
+            }
+        });
+	}
+
+	// #region botões
+	@FunctionalInterface
+	private interface IButtonBase<T, U, V, R> {
+		public R apply(T t, U u, V v);
+	}
+
+	private void adicionarBotoes(final JPanel jpanel) {
+		IButtonBase<String, Integer, Integer, JButton> buttonBase = (icone, width, height) -> {
+			JButton btn = new JButton("");
+			btn.setSize(width, height);
+			btn.setIcon(new ImageIcon(JPlayerMp3.class.getResource(icone)));
+			btn.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			btn.setBackground(Color.WHITE);
+			btn.setBorder(BorderFactory.createEmptyBorder());
+			btn.setContentAreaFilled(false);
+			btn.setFocusPainted(false);
+			return btn;
+		};
+
+		final JPlayerMp3 isto = this;
+		// #region btnAddPasta
+		JButton btnAddPasta = buttonBase.apply("/icones/player/icons8-pasta-16.png", 25, 23);
 		btnAddPasta.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -114,13 +150,12 @@ public class JPlayerMp3 extends JFrame {
 				}
 			}
 		});
-		this.contentPane.add(btnAddPasta);
+		// #endregion
 
+		// #region btnPlay
 		ImageIcon imgPlay = new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-reproduzir-16.png"));
 		ImageIcon imgPause = new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-pausa-16.png"));
-		JButton btnPlay = new JButton("");
-		btnPlay.setIcon(imgPlay);
-		btnPlay.setBounds(112, 11, 25, 23);
+		JButton btnPlay = buttonBase.apply("/icones/player/icons8-reproduzir-16.png", 25, 23);
 		btnPlay.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -139,16 +174,10 @@ public class JPlayerMp3 extends JFrame {
 				JPlayerMp3.this.playMp3.playPause(); // o componente sabe em qual estado está
 			}
 		});
-		btnPlay.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnPlay.setBackground(Color.WHITE);
-		btnPlay.setBorder(BorderFactory.createEmptyBorder());
-		btnPlay.setContentAreaFilled(false);
-		btnPlay.setFocusPainted(false);
-		this.contentPane.add(btnPlay);
+		// #endregion
 
-		JButton btnAnterior = new JButton("");
-		btnAnterior.setBounds(37, 11, 25, 23);
-		btnAnterior.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-voltar-16.png")));
+		// #region btnAnterior
+		JButton btnAnterior = buttonBase.apply("/icones/player/icons8-voltar-16.png", 25, 23);
 		btnAnterior.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -157,16 +186,10 @@ public class JPlayerMp3 extends JFrame {
 				JPlayerMp3.this.playMusica(JPlayerMp3.this.getPreviousMusic(), true, false);
 			}
 		});
-		btnAnterior.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnAnterior.setBackground(Color.WHITE);
-		btnAnterior.setBorder(BorderFactory.createEmptyBorder());
-		btnAnterior.setContentAreaFilled(false);
-		btnAnterior.setFocusPainted(false);
-		this.contentPane.add(btnAnterior);
+		// #endregion
 
-		JButton btnProxima = new JButton("");
-		btnProxima.setBounds(61, 11, 25, 23);
-		btnProxima.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-avançar-16.png")));
+		// #region btnProxima
+		JButton btnProxima = buttonBase.apply("/icones/player/icons8-avançar-16.png", 25, 23);
 		btnProxima.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -175,18 +198,12 @@ public class JPlayerMp3 extends JFrame {
 				JPlayerMp3.this.playMusica(JPlayerMp3.this.getNextMusic(), true, false);
 			}
 		});
-		btnProxima.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnProxima.setBackground(Color.WHITE);
-		btnProxima.setBorder(BorderFactory.createEmptyBorder());
-		btnProxima.setContentAreaFilled(false);
-		btnProxima.setFocusPainted(false);
-		this.contentPane.add(btnProxima);
+		// #endregion
 
-		JButton btnRandozimarListaMusicas = new JButton("");
-		btnRandozimarListaMusicas.setBounds(86, 11, 25, 23);
-		btnRandozimarListaMusicas.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-embaralhar-16.png")));
-		btnRandozimarListaMusicas.setToolTipText("Randomizar Lista de M\u00FAsicas");
-		btnRandozimarListaMusicas.addActionListener(new ActionListener() {
+		// #region btnRandomizarListaMusicas
+		JButton btnRandomizarListaMusicas = buttonBase.apply("/icones/player/icons8-embaralhar-16.png", 25, 23);
+		btnRandomizarListaMusicas.setToolTipText("Randomizar Lista de M\u00FAsicas");
+		btnRandomizarListaMusicas.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (!existemMusicas()) { return; }
@@ -196,15 +213,10 @@ public class JPlayerMp3 extends JFrame {
 				JPlayerMp3.this.playMusica(indice, true, true);
 			}
 		});
-		btnRandozimarListaMusicas.setBackground(Color.WHITE);
-		btnRandozimarListaMusicas.setBorder(BorderFactory.createEmptyBorder());
-		btnRandozimarListaMusicas.setContentAreaFilled(false);
-		btnRandozimarListaMusicas.setFocusPainted(false);
-		this.contentPane.add(btnRandozimarListaMusicas);
+		// #endregion
 
-		JButton btnStop = new JButton("");
-		btnStop.setBounds(135, 11, 25, 23);
-		btnStop.setIcon(new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-parar-16.png")));
+		// #region btnStop
+		JButton btnStop = buttonBase.apply("/icones/player/icons8-parar-16.png", 25, 23);
 		btnStop.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -216,34 +228,34 @@ public class JPlayerMp3 extends JFrame {
 				JPlayerMp3.this.cancallplayfunction.set(true);
 			}
 		});
-		btnStop.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnStop.setBackground(Color.WHITE);
-		btnStop.setBorder(BorderFactory.createEmptyBorder());
-		btnStop.setContentAreaFilled(false);
-		btnStop.setFocusPainted(false);
-		this.contentPane.add(btnStop);
+		// #endregion
 
-		this.lblStatus = new JLabel("");
-		this.lblStatus.setBounds(10, 371, 329, 14);
-		this.contentPane.add(this.lblStatus);
 
-		this.txtPesquisar = new JTextField();
-		this.txtPesquisar.addKeyListener(new KeyAdapter() {
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+		panel.add(btnAddPasta);
+		panel.add(btnAnterior);
+		panel.add(btnProxima);
+		panel.add(btnRandomizarListaMusicas);
+		panel.add(btnPlay);
+		panel.add(btnStop);
+
+		jpanel.add(panel, BorderLayout.NORTH);
+	}
+	// #endregion
+
+	// #region Jtable
+	private void addJtable(final JPanel jpanel) {
+		this.table = new JTable() {
+			private static final long serialVersionUID = 1L;
+
 			@Override
-			public void keyReleased(KeyEvent e) {
-				super.keyReleased(e);
-
-				if (JPlayerMp3.this.table.getRowCount() <= 0) { JPlayerMp3.this.preencherTabelaMusicas(); }
-				if (JPlayerMp3.this.table.getRowCount() <= 0) {return;}
-				//if (e.getKeyCode() != KeyEvent.VK_ENTER || JPlayerMp3.this.table.getRowCount() <= 0) { return; }
-				JPlayerMp3.this.filtrarListaMusicas();
+			public boolean isCellEditable(int row, int column) {
+				return false;
 			}
-		});
-		this.txtPesquisar.setBounds(349, 369, 320, 20);
-		this.contentPane.add(this.txtPesquisar);
-		this.txtPesquisar.setColumns(10);
-
-		this.table = new JTable() { private static final long serialVersionUID = 1L; @Override public boolean isCellEditable(int row, int column) { return false; } };
+		};
 		this.table.setAutoCreateRowSorter(true); // sorting of the rows on a particular column
 		this.table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -260,13 +272,47 @@ public class JPlayerMp3 extends JFrame {
 
 		this.scrollPane = new JScrollPane(this.table);
 		this.scrollPane.setBounds(10, 45, 659, 320);
-		this.contentPane.add(this.scrollPane);
+		// this.contentPane.add(this.scrollPane);
 
-		this.animacaobarra = new AnimacaoBarra(this.lblStatus);
+		preencherTabelaMusicas();
 
-		this.preencherTabelaMusicas();
+		jpanel.add(scrollPane, BorderLayout.CENTER);
 	}
+	// #endregion
+	
+	//#region rodapé
+	private void addRodape(final JPanel jpanel) {
 
+		this.lblStatus = new JLabel("");
+		//lblStatus.setSize(329, 14);
+
+		this.txtPesquisar = new JTextField();
+		//txtPesquisar.setSize(400, 20);
+		//this.txtPesquisar.setColumns(10);
+		this.txtPesquisar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				super.keyReleased(e);
+
+				 if (JPlayerMp3.this.table.getRowCount() <= 0) { JPlayerMp3.this.preencherTabelaMusicas(); }
+				 if (JPlayerMp3.this.table.getRowCount() <= 0) {return;}
+				 //if (e.getKeyCode() != KeyEvent.VK_ENTER || JPlayerMp3.this.table.getRowCount() <= 0) { return; }
+				 JPlayerMp3.this.filtrarListaMusicas();
+			}
+		});
+
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.WHITE);
+		panel.setLayout(new BorderLayout(100, 0));
+
+		panel.add(lblStatus, BorderLayout.WEST);
+		panel.add(this.txtPesquisar, BorderLayout.CENTER);
+
+		jpanel.add(panel, BorderLayout.SOUTH);
+	}
+	//#endregion
+	
+	
 	private void playMusica(IndexFile musicaToPlay, boolean playNext, boolean isRandom) {
 		if (musicaToPlay == null) { this.cancallplayfunction.set(true); return; } // erro
 		if (!this.cancallplayfunction.get()) { return; } // System.out.println("wait to play");
@@ -300,7 +346,6 @@ public class JPlayerMp3 extends JFrame {
 	}
 
 	private void preencherTabelaMusicas() {
-
 		List<IndexFile> listaMusicas = null;
 		if (this.mapMusicas==null||this.mapMusicas.isEmpty()) {
 			listaMusicas = new ListaMusicas().getListaMusicas();
