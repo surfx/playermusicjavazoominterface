@@ -6,3 +6,15 @@
 /RemoteSystemsTempFiles/*
 /clientdb.xml
 /package-lock.json
+
+.project
+/.classpath
+/.settings/
+/bin/
+/target/
+/.project
+/.settings/*
+/bin/*
+/target/*
+*.class
+

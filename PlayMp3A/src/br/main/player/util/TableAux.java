@@ -29,8 +29,8 @@ public class TableAux implements Serializable {
 			//} else {
 			String musicacompleto = LerPropriedadesMp3.tratarNomeMusica(idxf.getFile().getName());
 			if (musicacompleto.contains("-")) {
-				String artista = musicacompleto.substring(0, musicacompleto.lastIndexOf("-"));
-				String musica = musicacompleto.substring(musicacompleto.lastIndexOf("-") + 1);
+				String artista = musicacompleto.substring(0, musicacompleto.lastIndexOf("-")).trim();
+				String musica = musicacompleto.substring(musicacompleto.lastIndexOf("-") + 1).trim();
 				dados[i] = new Object[] { (idxf.getIndice()+1) + "", artista, musica /* , f.getAbsolutePath() */ };
 			} else {
 				dados[i] = new Object[] { (idxf.getIndice()+1) + "", musicacompleto, musicacompleto /* , f.getAbsolutePath() */ };

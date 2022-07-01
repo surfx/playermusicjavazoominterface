@@ -2,9 +2,9 @@ package br.main.player.visual;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -26,6 +26,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
@@ -75,11 +76,16 @@ public class JPlayerMp3 extends JFrame {
 		//this.setResizable(false);
 		this.setTitle(this.appname);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		Dimension d = Propriedades.getWH();
-		int w = d==null||d.getWidth()<=0.0? 900: (int) Math.round(d.getWidth());
-		int h = d==null||d.getHeight()<=0.0? 650: (int) Math.round(d.getHeight());
-		this.setBounds(100, 100, w, h);
-		this.setLocationRelativeTo(null); // centraliza no meio da tela
+
+		Rectangle rect = Propriedades.getRectangle();
+		int x = rect==null||rect.getX()<=0.0? 100: (int) Math.round(rect.getX());
+		int y = rect==null||rect.getY()<=0.0? 100: (int) Math.round(rect.getY());
+		int w = rect==null||rect.getWidth()<=0.0? 900: (int) Math.round(rect.getWidth());
+		int h = rect==null||rect.getHeight()<=0.0? 650: (int) Math.round(rect.getHeight());
+		this.setBounds(x, y, w, h);
+		if (rect==null) {
+			this.setLocationRelativeTo(null); // centraliza no meio da tela	
+		}
 		this.contentPane = new JPanel();
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		this.contentPane.setLayout(new BorderLayout(0, 0));
@@ -97,7 +103,7 @@ public class JPlayerMp3 extends JFrame {
 		final JPlayerMp3 isto = this;
 		addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent e) {
-            	Propriedades.salvarWH(isto.getWidth(), isto.getHeight());
+            	Propriedades.salvar(isto.getX(), isto.getY(), isto.getWidth(), isto.getHeight());
                 System.exit(0);
             }
         });
@@ -301,14 +307,11 @@ public class JPlayerMp3 extends JFrame {
 			}
 		});
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setLayout(new BorderLayout(100, 0));
-
-		panel.add(lblStatus, BorderLayout.WEST);
-		panel.add(this.txtPesquisar, BorderLayout.CENTER);
-
-		jpanel.add(panel, BorderLayout.SOUTH);
+		JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
+				false, lblStatus, txtPesquisar);
+		splitPane.setOneTouchExpandable(false);
+		splitPane.setResizeWeight(0.4);
+		jpanel.add(splitPane, BorderLayout.SOUTH);
 	}
 	//#endregion
 	
