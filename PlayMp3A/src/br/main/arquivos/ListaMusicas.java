@@ -14,8 +14,8 @@ public class ListaMusicas {
 	public void verificarArquivosMusicas() {
 		if (this.pathListaSalvar==null||this.pathListaSalvar.isEmpty()) {return;}
 		List<String> musicasPath = Arquivos.reader(this.pathListaSalvar);
-		int size = musicasPath.size();
 		if (musicasPath==null||musicasPath.isEmpty()) {return;}
+		int size = musicasPath.size();
 		musicasPath = musicasPath.stream().filter(m -> m!=null && !m.isEmpty() && new File(m).exists()).collect(Collectors.toList());
 		if (size == musicasPath.size()) {return;}
 		Arquivos.write(this.pathListaSalvar, musicasPath, false);
@@ -43,7 +43,7 @@ public class ListaMusicas {
 	
 	public List<File> getListaMusicasFile(){
 		List<String> musicas = getListaMusicas();
-		if (musicas==null|musicas.isEmpty()) {return null;}
+		if (musicas==null||musicas.isEmpty()) {return null;}
 		return musicas.stream().filter(m -> m!=null && !m.isEmpty()).map(m -> new File(m)).filter(m->m.exists()).collect(Collectors.toList());
 	}
 
