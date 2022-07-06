@@ -14,24 +14,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import br.main.arquivos.util.hash.SHA1Calculo;
-import br.main.player.entidade.IndexFile;
-import br.main.player.util.TableAux;
 
 public class Arquivos {
 
 	private static String nl = System.lineSeparator();
 
-	public static List<IndexFile> listarArquivosIdxF(String path){
-		return TableAux.convert(listarArquivos(path));
-	}
-	public static List<IndexFile> listarArquivosIdxF(String path, String[] extensions){
-		return TableAux.convert(listarArquivos(path, extensions));
-	}
-
-	private static List<File> listarArquivos(String path){
+	public static List<File> listarArquivos(String path){
 		return listarArquivos(path, null);
 	}
-	private static List<File> listarArquivos(String path, String[] extensions){
+	public static List<File> listarArquivos(String path, String[] extensions){
 		if (path==null||path.trim().isEmpty()) {return null;}
 		File folder = new File(path);
 		if (!folder.exists()) {return null;}
@@ -99,10 +90,6 @@ public class Arquivos {
 	}
 
 	// ----------------------------------------
-
-	public static List<IndexFile> mergeListsIdx(List<IndexFile> lista1, List<IndexFile> lista2) {
-		return TableAux.convert(mergeLists(TableAux.convertIdx(lista1), TableAux.convertIdx(lista2)));
-	}
 
 	/**
 	 * faz o merge de duas listas.

@@ -87,19 +87,16 @@ public class PlayMp3 {
 	}
 	
 	public void avancar(int frames) {
-		if (frames<0||frames>=totalFrames) {
+		if (frames < 0 || frames >= totalFrames) {
 			System.err.println("frames < 0 ou frames >= " + totalFrames);
 			return;
 		}
 		close();
-		if (pos!=null) {pos.setPausedOnFrame(frames);}
+		if (pos != null) { pos.setPausedOnFrame(frames); }
 		play();
 	}
 	
-
-	
 	private void play() {
-
 		player = null;
 		try {
 			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(filename));
@@ -117,7 +114,6 @@ public class PlayMp3 {
 			return;
 		}
 
-
 		new Thread() {
 			public void run() {
 				try {
@@ -125,7 +121,7 @@ public class PlayMp3 {
 					if (pos.getPausedOnFrame() <= 0) {
 						player.play();
 					} else {
-						// poss�vel erro - totalFrames
+						// possivel erro - totalFrames
 						player.play(pos.getPausedOnFrame(), totalFrames <= 0 ? Integer.MAX_VALUE : totalFrames);
 					}
 				} catch (Exception e) {
@@ -135,7 +131,7 @@ public class PlayMp3 {
 			}
 		}.start();
 
-		if (iHandlerMusicPosition!=null) {
+		if (iHandlerMusicPosition != null) {
 			new Thread() {
 				public void run() {
 					while(isPlaying) {
@@ -194,11 +190,15 @@ public class PlayMp3 {
 	}
 
 	private void p(int t) {	try { Thread.sleep(t); } catch (InterruptedException e) { e.printStackTrace(); }}
+
+	public String getFilename() {
+		return filename;
+	}
 	
 	@Override
 	public String toString() {
 		return "PlayMp3 [filename=" + filename + ", totalFrames=" + totalFrames
 				+ ", pos=" + pos + ", isPlaying=" + isPlaying + "]";
 	}
-	
+
 }

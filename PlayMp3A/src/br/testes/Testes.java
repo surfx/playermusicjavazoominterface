@@ -15,67 +15,64 @@ import java.util.Map.Entry;
 
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
-import br.main.arquivos.util.Arquivos;
-import br.main.player.entidade.IndexFile;
-
 public class Testes {
 
 
-	@SuppressWarnings("unused")
-	private static void shatest() {
-		// https://www.guj.com.br/t/verificar-igualdade-entre-arquivos/55860/4
-		String folderPath1 = "D:\\Documentos\\musicas\\musicas2\\";
-
-		String folderPath2 = "C:\\Users\\spy\\Desktop\\musicas2\\";
-
-		List<IndexFile> arquivos1 = Arquivos.listarArquivosIdxF(folderPath1);
-		List<IndexFile> arquivos2 = Arquivos.listarArquivosIdxF(folderPath2);
-
-		System.out.println(computeFileMD5(arquivos1.get(1).getFile()));
-		System.out.println(hashFile(arquivos1.get(1).getFile()));
-		System.out.println("----------------");
-
-		long start = System.currentTimeMillis();
-//		List<File> mergeList = mergeLists(arquivos1, arquivos2);
-//		long elapsed = System.currentTimeMillis() - start;
+//	@SuppressWarnings("unused")
+//	private static void shatest() {
+//		// https://www.guj.com.br/t/verificar-igualdade-entre-arquivos/55860/4
+//		String folderPath1 = "D:\\Documentos\\musicas\\musicas2\\";
 //
-//		System.out.println("arquivos1: " + arquivos1.size());
-//		System.out.println("arquivos2: " + arquivos2.size());
-//		System.out.println("mergeList: " + mergeList.size());
-//		long t1 = start - elapsed;
-//		System.out.printf("%.3f ms%n", t1 / 1000d);
-//		mergeList.clear();
-//		System.out.println("-----------------------------------------------------------");
+//		String folderPath2 = "C:\\Users\\spy\\Desktop\\musicas2\\";
 //
-//		start = System.currentTimeMillis();
-//		mergeList = mergeLists2(arquivos1, arquivos2);
-//		elapsed = System.currentTimeMillis() - start;
+//		List<IndexFile> arquivos1 = Arquivos.listarArquivosIdxF(folderPath1);
+//		List<IndexFile> arquivos2 = Arquivos.listarArquivosIdxF(folderPath2);
 //
-//		System.out.println("arquivos1: " + arquivos1.size());
-//		System.out.println("arquivos2: " + arquivos2.size());
-//		System.out.println("mergeList: " + mergeList.size());
-//		long t2 = start - elapsed;
-//		System.out.printf("%.3f ms%n", t2 / 1000d);
-//		System.out.println("-----------------------------------------------------------");
+//		System.out.println(computeFileMD5(arquivos1.get(1).getFile()));
+//		System.out.println(hashFile(arquivos1.get(1).getFile()));
+//		System.out.println("----------------");
 //
-//		System.out.println((t1==t2?"t1==t2":  t1>t2?"t1>t2":"t1<t2") + ", diff: " + Math.abs(t1-t2));
-
-		//mergeList.forEach(System.out::println);
-
-		//File f = arquivos.get(3); System.out.println(hashFile(f));
-//		System.out.println("----------------------------");
-//		Map<BigInteger, List<File>> map = analiseSHAFiles(folderPath2);
-//		map.forEach((k,v)->{
-//			//System.out.println("k: " + k);
-//			if(v.size()>1) {
-//				System.out.println("k: " + k);
-//				System.err.println("ERRO");
-//				v.forEach(System.out::println);
-//				System.out.println("----------------------------");
-//			}
-//			//System.out.println("----------------------------");
-//		});
-	}
+//		long start = System.currentTimeMillis();
+////		List<File> mergeList = mergeLists(arquivos1, arquivos2);
+////		long elapsed = System.currentTimeMillis() - start;
+////
+////		System.out.println("arquivos1: " + arquivos1.size());
+////		System.out.println("arquivos2: " + arquivos2.size());
+////		System.out.println("mergeList: " + mergeList.size());
+////		long t1 = start - elapsed;
+////		System.out.printf("%.3f ms%n", t1 / 1000d);
+////		mergeList.clear();
+////		System.out.println("-----------------------------------------------------------");
+////
+////		start = System.currentTimeMillis();
+////		mergeList = mergeLists2(arquivos1, arquivos2);
+////		elapsed = System.currentTimeMillis() - start;
+////
+////		System.out.println("arquivos1: " + arquivos1.size());
+////		System.out.println("arquivos2: " + arquivos2.size());
+////		System.out.println("mergeList: " + mergeList.size());
+////		long t2 = start - elapsed;
+////		System.out.printf("%.3f ms%n", t2 / 1000d);
+////		System.out.println("-----------------------------------------------------------");
+////
+////		System.out.println((t1==t2?"t1==t2":  t1>t2?"t1>t2":"t1<t2") + ", diff: " + Math.abs(t1-t2));
+//
+//		//mergeList.forEach(System.out::println);
+//
+//		//File f = arquivos.get(3); System.out.println(hashFile(f));
+////		System.out.println("----------------------------");
+////		Map<BigInteger, List<File>> map = analiseSHAFiles(folderPath2);
+////		map.forEach((k,v)->{
+////			//System.out.println("k: " + k);
+////			if(v.size()>1) {
+////				System.out.println("k: " + k);
+////				System.err.println("ERRO");
+////				v.forEach(System.out::println);
+////				System.out.println("----------------------------");
+////			}
+////			//System.out.println("----------------------------");
+////		});
+//	}
 
 	public static List<File> mergeLists(List<File> lista1, List<File> lista2) {
 		if (lista1==null||lista1.isEmpty()) {return lista2;}

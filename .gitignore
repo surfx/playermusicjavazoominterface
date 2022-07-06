@@ -17,4 +17,5 @@
 /bin/*
 /target/*
 *.class
-
+**target/**
+**bin/**

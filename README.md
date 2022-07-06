@@ -30,7 +30,10 @@ Exportar o runnable jar (player1.0.0.jar)
 #!/bin/bash
 
 cd /home/.../Documents/programas/softwares/player
-/usr/lib/jvm/openjdk-8u332/bin/java -jar player1.0.0.jar &
+/usr/lib/jvm/openjdk-8u332/bin/java \
+-jar java_player1.0.0.jar \
+-Dsun.java2d.uiScale=2 \
+-Dsun.java2d.uiScale.enabled=true &
 ```
 
 ## player.desktop

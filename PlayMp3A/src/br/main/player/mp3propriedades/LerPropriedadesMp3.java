@@ -70,7 +70,7 @@ public class LerPropriedadesMp3 implements Serializable {
 	private InformacoesMp3 getInfo(File f) {
 		if (f == null) { return null; }
 		try {
-			Mp3File mp3file = new Mp3File(f); // essa lib � muito lenta
+			Mp3File mp3file = new Mp3File(f); // essa lib e muito lenta
 			if (mp3file.hasId3v1Tag()) {
 				ID3v1 id3v1tag = mp3file.getId3v1Tag();
 				return new InformacoesMp3(id3v1tag.getTitle(), id3v1tag.getArtist(), null, null, id3v1tag.getAlbum());
