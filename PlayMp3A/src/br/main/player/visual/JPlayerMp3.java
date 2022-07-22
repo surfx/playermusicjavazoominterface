@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -42,7 +43,7 @@ import br.main.player.util.Propriedades;
 import br.main.player.util.RandomNumber;
 import br.main.player.util.TableAux;
 
-public class JPlayerMp3 extends JFrame {
+public class JPlayerMp3 extends JFrame implements KeyListener {
 
 	private static final long serialVersionUID = 1L;
 	private final String appname = "JPlayerMp3 1.1.0";
@@ -52,6 +53,7 @@ public class JPlayerMp3 extends JFrame {
 	private JTable table;
 	private JLabel lblStatus;
 	private JTextField txtPesquisar;
+	private JButton btnPlay;
 
 	//private Map<Integer, IndexFile> mapMusicas;
 	private TableAux tableAux = null;
@@ -93,6 +95,10 @@ public class JPlayerMp3 extends JFrame {
             }
         });
 
+		addKeyListener(this);
+        setFocusable(true);
+        setFocusTraversalKeysEnabled(false);
+		
 		this.repaintThis();
 	}
 	
@@ -139,7 +145,7 @@ public class JPlayerMp3 extends JFrame {
 
 		// #region btnPlay
 		ImageIcon imgPlay = new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-reproduzir-16.png"));
-		JButton btnPlay = buttonBase.apply("/icones/player/icons8-reproduzir-16.png", 25, 23);
+		btnPlay = buttonBase.apply("/icones/player/icons8-reproduzir-16.png", 25, 23);
 		btnPlay.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -476,6 +482,39 @@ public class JPlayerMp3 extends JFrame {
 		this.contentPane.repaint();
 		this.validate();
 		this.repaint();
+	}
+	
+	// --- KeyListener
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		ImageIcon imgPlay = new ImageIcon(JPlayerMp3.class.getResource("/icones/player/icons8-reproduzir-16.png"));
+		switch (e.getKeyCode()) {
+			case KeyEvent.VK_R:
+				this.btnRandomizarMusic(this.btnPlay, imgPlay);
+				break;
+			case KeyEvent.VK_RIGHT:
+				this.btnProximaMusic(this.btnPlay, imgPlay);
+				break;
+			case KeyEvent.VK_LEFT:
+				this.btnAnteriorMusic(this.btnPlay, imgPlay);
+				break;
+			case KeyEvent.VK_ENTER:
+				this.btnPlayMusic(this.btnPlay, imgPlay);
+				break;
+			default:
+				break;
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		
 	}
 	
 }
